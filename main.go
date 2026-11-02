@@ -8,6 +8,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -66,7 +67,10 @@ func main() {
 	mux.HandleFunc("GET /{book}/{chapter}", handleChapter)       // GET /Genesis/1
 	mux.HandleFunc("GET /{book}/{chapter}/{verse}", handleVerse) // GET /Genesis/1/1-10
 
-	port := ":7000"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":7000"
+	}
 	fmt.Println("server listening on http://localhost" + port)
 	if err := http.ListenAndServe(port, mux); err != nil {
 		log.Fatal(err)
