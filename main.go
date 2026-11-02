@@ -69,10 +69,11 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = ":7000"
+		port = "7000"
 	}
-	fmt.Println("server listening on http://localhost" + port)
-	if err := http.ListenAndServe(port, mux); err != nil {
+	addr := ":" + port
+	fmt.Println("server listening on http://localhost" + addr)
+	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}
 }
